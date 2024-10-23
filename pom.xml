@@ -5,10 +5,24 @@
     <artifactId>DrTurnosGUI</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+<<<<<<< HEAD
+=======
+    <dependencies>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE230</version>
+        </dependency>
+    </dependencies>
+>>>>>>> 1d3aed01f81c04a6c41f749b73b6828798048099
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
+<<<<<<< HEAD
         <exec.mainClass>com.mycompany.drturnosgui.DrTurnosGUI</exec.mainClass>
+=======
+        <exec.mainClass>com.mycompany.drturnosgui.NewJFrame</exec.mainClass>
+>>>>>>> 1d3aed01f81c04a6c41f749b73b6828798048099
     </properties>
 </project>
