@@ -1,0 +1,231 @@
+package com.mycompany.drturnosgui;
+
+// Dr Turnos 1.5
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
+
+// Ventana Principal
+public class DrTurnosGUI extends JFrame {
+    private JTable table;
+    private DefaultTableModel model;
+    private Set<String> turnosSet = new HashSet<>();
+    public static Set<Cliente> clientes = new HashSet<>();
+    public static Set<ObraSocial> obrasSociales = new HashSet<>();
+
+    public DrTurnosGUI() {
+        cargarHashSets();
+        initUI();
+    }
+
+    // Inicializar la GUI
+    private void initUI() {
+        setTitle("DrTurnos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(800, 386);
+        model = createTableModel();
+        createUIComponents();
+        loadTableData();
+
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    public class CustomTableModel extends DefaultTableModel {
+        public CustomTableModel(String[] columnNames, int rowCount) {
+            super(columnNames, rowCount);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    }
+
+    private CustomTableModel createTableModel() {
+        String[] columnNames = {"Día", "Hora", "DNI", "Nombre", "Teléfono", "Obra Social", "Motivo"};
+        return new CustomTableModel(columnNames, 0);
+    }
+
+    // Botones y Tabla
+    private void createUIComponents() {
+        table = new JTable(model);
+        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        addButton(buttonPanel, "Clientes", e -> openClientesGUI());
+        addButton(buttonPanel, "Obras Sociales", e -> openObrasSocialesGUI());
+        addButton(buttonPanel, "Agregar/Modificar", e -> openModificarTurnoGUI());
+        addButton(buttonPanel, "Eliminar", e -> limpiarCamposSeleccionados());
+        addButton(buttonPanel, "Cerrar", e -> cerrar());
+
+        add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    // Metodo para agregar botones y agregarlos al contenedor
+    private void addButton(Container container, String text, ActionListener listener) {
+        JButton button = new JButton(text);
+        button.addActionListener(listener);
+        container.add(button);
+    }
+
+    private void openClientesGUI() {
+        ClientesGUI clientesGUI = new ClientesGUI(clientes, obrasSociales);
+        clientesGUI.setVisible(true);
+    }
+
+    private void openObrasSocialesGUI() {
+        ObrasSocialesGUI obrasSocialesGUI = new ObrasSocialesGUI(obrasSociales);
+        obrasSocialesGUI.setVisible(true);
+    }
+
+    // Llama a la clase ModificarTurnoGUI()
+    private void openModificarTurnoGUI() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            ModificarTurnoGUI modificarTurnoGUI = new ModificarTurnoGUI(model, selectedRow, clientes, obrasSociales);
+            modificarTurnoGUI.setVisible(true);
+        } else {
+            showError("Selecciona un turno para modificar.");
+        }
+    }
+
+    // Borra los campos de la tabla
+    private void limpiarCamposSeleccionados() {
+        int selectedRow = table.getSelectedRow();
+
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            String fecha = model.getValueAt(selectedRow, 0).toString();
+            String hora = model.getValueAt(selectedRow, 1).toString();
+            String dni = model.getValueAt(selectedRow, 2).toString();
+
+            model.setValueAt("", selectedRow, 2); // DNI
+            model.setValueAt("", selectedRow, 3); // Nombre
+            model.setValueAt("", selectedRow, 4); // Teléfono
+            model.setValueAt("", selectedRow, 5); // Obra Social
+            model.setValueAt("", selectedRow, 6); // Motivo
+
+            eliminarTurnoEnArchivo(fecha, hora, dni);
+        } else {
+            showError("Selecciona un turno para limpiar los campos.");
+        }
+    }
+
+    // Borra los campos de la tabla en el archivo 
+    private void eliminarTurnoEnArchivo(String fecha, String hora, String dni) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(", ");
+                if (fields.length < 3 || !fecha.equals(fields[0]) || !hora.equals(fields[1]) || !dni.equals(fields[2])) {
+                    fileContent.append(line).append("\n");
+                } else {
+                    // Crear una nueva línea con los primeros dos campos y el resto en blanco
+                    String newLine = fields[0] + ", " + fields[1] + ", , , , , ";
+                    fileContent.append(newLine).append("\n");
+                }
+            }
+            br.close();
+
+            Files.write(Paths.get("turnos.txt"), fileContent.toString().getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+            loadTableData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Carga los datos del archivo a la tabla
+    private void loadTableData() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("turnos.txt"));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(", ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate fecha = LocalDate.parse(fields[0], formatter);
+                LocalDate now = LocalDate.now();
+
+                if (fields.length == 1) {
+                    if (!fecha.isBefore(now)) {
+                        model.addRow(fields);
+                    }
+                }
+
+                if (fields.length >= 2) {
+                    if (!fecha.isBefore(now)) {
+                        model.addRow(fields);
+                        String hora = fields[1];
+                        String turnoKey = fecha + ", " + hora;
+                        turnosSet.add(turnoKey);
+                    }
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // Crear y mostrar la ventana de login
+            LoginGUI loginGUI = new LoginGUI();
+            loginGUI.setVisible(true);
+            
+            // Lógica para mostrar la ventana principal solo si el login es exitoso
+            loginGUI.addLoginListener(success -> {
+                new DrTurnosGUI();
+            });
+        });
+    }
+
+    // Cerrar aplicación
+    private void cerrar() {
+        guardarHashSets();
+        dispose();
+    }
+
+    private void guardarHashSet(Set<? extends Serializable> set, String fileName) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            objectOutputStream.writeObject(set);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private <T extends Serializable> Set<T> cargarHashSet(String fileName) {
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+            return (Set<T>) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return new HashSet<>(); // Retorna un conjunto vacío si hay un error
+        }
+    }
+
+    public void cargarHashSets() {
+        clientes = cargarHashSet("clientes.ser");
+        obrasSociales = cargarHashSet("obrasSociales.ser");
+    }
+
+    public void guardarHashSets() {
+        guardarHashSet(obrasSociales, "obrasSociales.ser");
+        guardarHashSet(clientes, "clientes.ser");
+    }
+}
