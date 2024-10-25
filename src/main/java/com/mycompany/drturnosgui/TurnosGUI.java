@@ -32,6 +32,8 @@ public class TurnosGUI extends javax.swing.JFrame {
 
         PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblTurnos.setBackground(new java.awt.Color(0, 153, 102));
+        tblTurnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
         tblTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -77,19 +79,27 @@ public class TurnosGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblTurnos.setCellSelectionEnabled(true);
+        tblTurnos.setSelectionBackground(new java.awt.Color(204, 255, 204));
         jScrollPane2.setViewportView(tblTurnos);
 
         PanelPrincipal.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 550, 570));
 
+        jPanel3.setBackground(new java.awt.Color(0, 204, 153));
+
+        btnPacientes.setBackground(new java.awt.Color(204, 255, 204));
         btnPacientes.setText("Pacientes");
+        btnPacientes.setToolTipText("");
         btnPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPacientesActionPerformed(evt);
             }
         });
 
+        btnObrasSociales.setBackground(new java.awt.Color(204, 255, 204));
         btnObrasSociales.setText("Obras sociales");
 
+        btnAgregarTurno.setBackground(new java.awt.Color(204, 255, 204));
         btnAgregarTurno.setText("Agregar/Modificar");
         btnAgregarTurno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +107,7 @@ public class TurnosGUI extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarTurno.setBackground(new java.awt.Color(204, 255, 204));
         btnEliminarTurno.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -106,8 +117,8 @@ public class TurnosGUI extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnObrasSociales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                    .addComponent(btnAgregarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnObrasSociales, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                     .addComponent(btnEliminarTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -126,7 +137,7 @@ public class TurnosGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 550));
+        PanelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 590));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 570));
 
