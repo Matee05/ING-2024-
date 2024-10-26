@@ -1,0 +1,51 @@
+-J-Duser.language=
+-J-Duser.country=
+@options
+@packages
+-classpath
+'C:/Users/USUARIO/.m2/repository/org/netbeans/external/AbsoluteLayout/RELEASE230/AbsoluteLayout-RELEASE230.jar'
+-encoding
+'UTF-8'
+-protected
+-source
+'20'
+-sourcepath
+'C:/Users/USUARIO/OneDrive/Escritorio/Ingenieria de Software II/ING-2024-/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/USUARIO/OneDrive/Escritorio/Ingenieria de Software II/ING-2024-/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'DrTurnosGUI 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'DrTurnosGUI 1.0-SNAPSHOT API'
+com.mycompany.drturnosgui
+C:\Users\USUARIO\.m2\repository\org\netbeans\external\AbsoluteLayout\RELEASE230\AbsoluteLayout-RELEASE230.jar = 1729883010525
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\src\main\java = 1729791308083
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\allclasses-index.html = 1729944466138
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\allpackages-index.html = 1729944466149
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\copy.svg = 1729944466254
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\element-list = 1729944465845
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\help-doc.html = 1729944466243
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\index-all.html = 1729944466228
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\index.html = 1729944466235
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\link.svg = 1729944466257
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\member-search-index.js = 1729944466159
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\module-search-index.js = 1729944466152
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\overview-tree.html = 1729944466113
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\package-search-index.js = 1729944466154
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\script.js = 1729944466251
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\search-page.js = 1729944466299
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\search.html = 1729944466232
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\search.js = 1729944466266
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\serialized-form.html = 1729944465943
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\stylesheet.css = 1729944466248
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\tag-search-index.js = 1729944466188
+C:\Users\USUARIO\OneDrive\Escritorio\Ingenieria de Software II\ING-2024-\target\reports\apidocs\type-search-index.js = 1729944466157
